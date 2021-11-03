@@ -10,7 +10,14 @@ import java.util.stream.Stream;
 public class WorkingWithStreams {
 
     @Test
-    void steams() {
-        List<String> names = List.of("Amigoscode", "Alex", "Zara");
+    void steams(){
+    List<String> names = List.of("Amigoscode", "Alex", "Zara");
+
+    //il est possible de definir plusieurs manieres pour creer un stream 1 ou 2
+    names.stream();//1
+    Stream<String> stringStream= Stream.of("toto","robert","alex"); //2
+
+
+
     }
 }
