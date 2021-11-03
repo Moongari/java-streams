@@ -7,10 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class Filtering {
 
@@ -39,6 +42,12 @@ public class Filtering {
                 .forEach(n -> System.out.print(n + " "));
         System.out.println();
         System.out.println("using dropWhile");
+
+        Stream<Integer> stream = Stream.of(2, 4, 6, 8, 9, 10, 12);
+        List<Integer> list= stream.dropWhile(n->n%2 ==0).collect(Collectors.toList());
+        System.out.println(list);
+
+
     }
 
     @Test
@@ -50,26 +59,56 @@ public class Filtering {
 
         System.out.println();
         System.out.println("using take while");
+        Stream<Integer> stream = Stream.of(2, 4, 6, 8, 9, 10, 12);
+        List<Integer> list= stream.takeWhile(n->n%2 ==0).collect(Collectors.toList());
+        System.out.println(list);
+
     }
 
     @Test
     public void findFirst() throws Exception {
         int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        OptionalInt response = Arrays.stream(numbers).findFirst();
+
+        if(response.isPresent()){
+            System.out.println(response.getAsInt());
+        }else{
+            System.out.println("no value");
+        }
+
     }
 
     @Test
     public void findAny() throws Exception {
         int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10};
+        OptionalInt response = Arrays.stream(numbers).findAny();
+
+        if(response.isPresent()){
+            System.out.println(response.getAsInt());
+        }else{
+            System.out.println("no value");
+        }
     }
 
     @Test
     public void allMatch() throws Exception {
         int[] even = {2, 4, 6, 8, 10};
+
+        boolean response = Arrays.stream(even).allMatch(n->n %2 ==0);
+
+        System.out.println(response);
     }
 
     @Test
     public void anyMatch() throws Exception {
-        int[] evenAndOneOdd = {2, 4, 6, 8, 10, 11};
+        int[] evenAndOneOdd = {3, 5, 7, 9, 13, 11};
+
+        boolean response = Arrays.stream(evenAndOneOdd).anyMatch(n->n%2==0);
+
+        System.out.println(response);
+        assertThat(response).isFalse();
+
     }
 
 }
