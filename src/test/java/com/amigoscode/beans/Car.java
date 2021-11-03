@@ -59,4 +59,14 @@ public class Car {
                 ", price=" + price +
                 '}';
     }
+
+
+    public static CarDTO map (Car car){
+        return new CarDTO (
+                car.getId(),
+                car.getPrice()
+        );
+
+
+    }
 }

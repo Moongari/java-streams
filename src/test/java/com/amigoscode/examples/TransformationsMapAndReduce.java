@@ -1,6 +1,7 @@
 package com.amigoscode.examples;
 
 import com.amigoscode.beans.Car;
+import com.amigoscode.beans.CarDTO;
 import com.amigoscode.beans.Person;
 import com.amigoscode.beans.PersonDTO;
 import com.amigoscode.mockdata.MockData;
@@ -39,8 +40,25 @@ public class TransformationsMapAndReduce {
     void mapToDoubleAndFindAverageCarPrice() throws IOException {
         List<Car> cars = MockData.getCars();
 
-        double avg = cars.stream().mapToDouble(c->c.getPrice()).average().orElse(0);
 
+        //ici j'ai crée un objet de type CarDTO
+        //je crée une function qui transforme mon objet Car en ObjetCarDTO
+
+        Function<Car,CarDTO> carCarDTOFunction = car-> new CarDTO(car.getId(),car.getPrice());
+        //ensuite je map cette collection dans une liste de type List<CarDTO> ou je ne recupere que les id et price
+        List<CarDTO> carsPrice = cars.stream().map(carCarDTOFunction).collect(Collectors.toList());
+
+        //j'affiche la liste
+        carsPrice.forEach(System.out::println);
+
+        System.out.println("---------------------------------------------------------");
+        //ainsi je map tout les objet de typeDouble , je fais la moyenne si il y a en un je prends sinon 0
+        //et j'affiche le resultat de la moyenne.
+        double avg = carsPrice.stream()
+                .mapToDouble(c->c.getPrice())
+                .average()
+                .orElse(0);
+        System.out.println(avg);
 
 
 
