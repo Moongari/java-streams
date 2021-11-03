@@ -10,8 +10,11 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class TransformationsMapAndReduce {
 
@@ -67,6 +70,9 @@ public class TransformationsMapAndReduce {
     @Test
     public void reduce() {
         int[] integers = {1, 2, 3, 4, 99, 100, 121, 1302, 199};
+        int result = Arrays.stream(integers).reduce(0,(subtotal,element)-> subtotal+element);
+        System.out.println(result);
+        assertThat(result).isLessThan(2000);
     }
 }
 
