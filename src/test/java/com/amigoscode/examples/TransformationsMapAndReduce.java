@@ -39,6 +39,10 @@ public class TransformationsMapAndReduce {
     void mapToDoubleAndFindAverageCarPrice() throws IOException {
         List<Car> cars = MockData.getCars();
 
+        double avg = cars.stream().mapToDouble(c->c.getPrice()).average().orElse(0);
+
+
+
 
     }
 
